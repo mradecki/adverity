@@ -1,0 +1,69 @@
+{% extends 'api/base.html' %}
+{% block content %}
+ <form action="{% url 'collection_count' collection_id %}" method="post" accept-charset="utf-8">
+     {% csrf_token %}
+     <div class="btn-group-toggle" data-toggle="buttons">
+       <label class="btn btn-outline-success active">
+         <input name="birth_year" type="checkbox" {% if birth_year_checked %} checked {% endif %}> Birth Year
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="homeworld" type="checkbox" {% if homeworld_checked %} checked {% endif %}> Homeworld
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="name" type="checkbox" {% if name_checked %} checked {% endif %}> Name
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="height" type="checkbox" {% if height_checked %} checked {% endif %}> Height
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="mass" type="checkbox" {% if mass_checked %} checked {% endif %}> Mass
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="hair_color" type="checkbox" {% if hair_color_checked %} checked {% endif %}> Hair Color
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="skin_color" type="checkbox" {% if skin_color_checked %} checked {% endif %}> Skin color
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="eye_color" type="checkbox" {% if eye_color_checked %} checked {% endif %}> Eye color
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="gender" type="checkbox" {% if gender_checked %} checked {% endif %}> Gender
+       </label>
+       <label class="btn btn-outline-success active">
+         <input name="edited" type="checkbox" {% if edited_checked %} checked {% endif %}> Date
+       </label>
+       <input class="btn btn-outline-success active" name="Count" type="submit" value="Count">
+     </div>
+</form>
+<br>
+
+<table class="table">
+    <thead>
+    {% for h in header %}
+        <th scope="col">
+            {{ h }}
+        </th>
+    {% endfor %}
+    </thead>
+    <tbody>
+        {% for row in table %}
+            <tr>
+                {% for col in row %}
+                <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+{% if show_load_more %}
+<form action="{% url 'collection_detail' collection_id %}" method="post" accept-charset="utf-8">
+     {% csrf_token %}
+     <div class="btn-group-toggle" data-toggle="buttons">
+       <input name="load_more"  class="btn btn-outline-success active" type="submit" value="Load More">
+     </div>
+</form>
+{% endif %}
+{% endblock %}

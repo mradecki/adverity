@@ -1,0 +1,17 @@
+{% extends 'api/base.html' %}
+{% block content %}
+<form action="{% url 'collections'  %}" method="post">
+    {% csrf_token %}
+    <button name="fetch" type="submit" class="btn btn-success">Fetch</button>
+</form>
+<br>
+<table class="table table-sm">
+    <tbody>
+        {% for row in table %}
+            <tr>
+                <td><a href="{% url 'collection_detail' row.id %}"> {{ row.date }}</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
